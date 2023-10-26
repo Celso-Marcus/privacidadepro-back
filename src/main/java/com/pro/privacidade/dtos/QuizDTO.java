@@ -1,51 +1,39 @@
-package com.pro.privacidade.entities;
+package com.pro.privacidade.dtos;
 
-import jakarta.persistence.*;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.validation.annotation.Validated;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
-@Entity
-@SQLDelete(sql = "UPDATE quiz SET status = false WHERE id = ?")
-@Where(clause = "status = true")
-@Table(name = "quiz")
-public class Quiz implements Serializable {
+@Validated
+public class QuizDTO {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "resultado")
+    @NotBlank
+    @NotNull
     private String result;
 
-    @Column(name = "respostas")
+    @NotBlank
+    @NotNull
     private String answers;
 
-    @Column(name = "nome_dpo")
+    @NotBlank
+    @NotNull
     private String dpoName;
 
-    @Column(name = "criado_em")
     private Date createdAt;
 
-    @Column(nullable = false, columnDefinition = "boolean default true")
-    private Boolean status = true;
+    public QuizDTO() {}
 
-    public Quiz() {
-    }
-
-    public Quiz(Long id, String result, String answers, String dpoName, Date createdAt, Boolean status) {
+    public QuizDTO(Long id, String result, String answers, String dpoName, Date createdAt) {
         this.id = id;
         this.result = result;
         this.answers = answers;
         this.dpoName = dpoName;
         this.createdAt = createdAt;
-        this.status = status;
     }
 
     public Long getId() {
@@ -88,22 +76,14 @@ public class Quiz implements Serializable {
         this.createdAt = createdAt;
     }
 
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Quiz quiz = (Quiz) o;
+        QuizDTO quizDTO = (QuizDTO) o;
 
-        return id.equals(quiz.id);
+        return id.equals(quizDTO.id);
     }
 
     @Override
@@ -113,7 +93,7 @@ public class Quiz implements Serializable {
 
     @Override
     public String toString() {
-        return "Quiz{" +
+        return "QuizDTO{" +
                 "id=" + id +
                 ", result='" + result + '\'' +
                 ", answers='" + answers + '\'' +

@@ -1,77 +1,67 @@
-package com.pro.privacidade.entities;
+package com.pro.privacidade.dtos;
 
-import jakarta.persistence.*;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.validation.annotation.Validated;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.util.Date;
 
-@Entity
-@SQLDelete(sql = "UPDATE inventario SET status = false WHERE id = ?")
-@Where(clause = "status = true")
-@Table(name = "inventario")
-public class Inventory implements Serializable {
+@Validated
+public class InventoryDTO {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotBlank
+    @NotNull
     private Long id;
 
-    @Column(name = "nome")
+    @NotBlank
+    @NotNull
     private String tagName;
-
-    @Column(name = "setor")
+    @NotBlank
+    @NotNull
     private String sector;
-
-    @Column(name = "dados_coletados")
+    @NotBlank
+    @NotNull
     private String collectedData;
-
-    @Column(name = "origem_dados")
+    @NotBlank
+    @NotNull
     private String sourceData;
-
-    @Column(name = "motivo_coleta")
+    @NotBlank
+    @NotNull
     private String reasonData;
-
-    @Column(name = "como_armazenado")
+    @NotBlank
+    @NotNull
     private String howStorage;
-
-    @Column(name = "segurança_dados")
+    @NotBlank
+    @NotNull
     private String securityData;
-
-    @Column(name = "prazo_eliminacao")
+    @NotBlank
+    @NotNull
     private String deadlineData;
-
-    @Column(name = "justificativa")
+    @NotBlank
+    @NotNull
     private String justificationData;
-
-    @Column(name = "menor_idade")
+    @NotBlank
+    @NotNull
     private boolean underAgeData;
-
-    @Column(name = "dados_sensiveis")
+    @NotBlank
+    @NotNull
     private String sensitiveData;
-
-    @Column(name = "controlador")
+    @NotBlank
+    @NotNull
     private String controller;
 
-    @Column(name = "criado_em")
     private Date createdAt;
 
-    @Column(name = "atualizado_em")
     private Date updatedAt;
 
-    @Column
-    private Boolean status;
-
-    public Inventory() {
+    public InventoryDTO() {
     }
 
-    public Inventory(String tagName, String sector, String collectedData, String sourceData, String reasonData,
-                     String howStorage, String securityData, String deadlineData, String justificationData, boolean underAgeData,
-                     String sensitiveData, String controller, Date createdAt, Date updatedAt) {
+    public InventoryDTO(Long id, String tagName, String sector, String collectedData, String sourceData, String reasonData,
+                        String howStorage, String securityData, String deadlineData, String justificationData, boolean underAgeData,
+                        String sensitiveData, String controller, Date createdAt, Date updatedAt) {
+        this.id = id;
         this.tagName = tagName;
         this.sector = sector;
         this.collectedData = collectedData;
@@ -208,22 +198,14 @@ public class Inventory implements Serializable {
         this.updatedAt = updatedAt;
     }
 
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Inventory inventory = (Inventory) o;
+        InventoryDTO that = (InventoryDTO) o;
 
-        return id.equals(inventory.id);
+        return id.equals(that.id);
     }
 
     @Override
@@ -233,7 +215,7 @@ public class Inventory implements Serializable {
 
     @Override
     public String toString() {
-        return "Inventory{" +
+        return "InventoryDTO{" +
                 "id=" + id +
                 ", tagName='" + tagName + '\'' +
                 ", sector='" + sector + '\'' +
