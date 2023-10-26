@@ -13,7 +13,7 @@ public class InicialModuleMock {
         quiz.setDpoName("Teste");
         quiz.setResult("Moderado");
         quiz.setCreatedAt(new Date());
-//        quiz.setStatus(true);
+        quiz.setStatus(true);
         return quiz;
     }
 
@@ -33,7 +33,7 @@ public class InicialModuleMock {
         inventory.setController("Controlador de dados de exemplo");
         inventory.setCreatedAt(new Date());
         inventory.setUpdatedAt(new Date());
-//        inventory.setStatus(true);
+        inventory.setStatus(true);
         return inventory;
     }
 }

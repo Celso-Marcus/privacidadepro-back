@@ -63,8 +63,8 @@ public class Inventory implements Serializable {
     @Column(name = "atualizado_em")
     private Date updatedAt;
 
-    @Column
-    private Boolean status;
+    @Column(nullable = false, columnDefinition = "boolean default true")
+    private Boolean status = true;
 
     public Inventory() {
     }
