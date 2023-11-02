@@ -1,6 +1,5 @@
 package com.pro.privacidade.dtos;
 
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.validation.annotation.Validated;
@@ -10,8 +9,6 @@ import java.util.Date;
 @Validated
 public class InventoryDTO {
 
-    @NotBlank
-    @NotNull
     private Long id;
 
     @NotBlank

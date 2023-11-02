@@ -63,6 +63,9 @@ public class Inventory implements Serializable {
     @Column(name = "atualizado_em")
     private Date updatedAt;
 
+    @Column(name = "dpo_name")
+    private String dpoName;
+
     @Column(nullable = false, columnDefinition = "boolean default true")
     private Boolean status = true;
 
@@ -71,7 +74,7 @@ public class Inventory implements Serializable {
 
     public Inventory(String tagName, String sector, String collectedData, String sourceData, String reasonData,
                      String howStorage, String securityData, String deadlineData, String justificationData, boolean underAgeData,
-                     String sensitiveData, String controller, Date createdAt, Date updatedAt) {
+                     String sensitiveData, String controller, Date createdAt, Date updatedAt, String dpoName) {
         this.tagName = tagName;
         this.sector = sector;
         this.collectedData = collectedData;
@@ -86,6 +89,7 @@ public class Inventory implements Serializable {
         this.controller = controller;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.dpoName = dpoName;
     }
 
     public Long getId() {
@@ -208,6 +212,14 @@ public class Inventory implements Serializable {
         this.updatedAt = updatedAt;
     }
 
+    public String getDpoName() {
+        return dpoName;
+    }
+
+    public void setDpoName(String dpoName) {
+        this.dpoName = dpoName;
+    }
+
     public Boolean getStatus() {
         return status;
     }
@@ -249,6 +261,7 @@ public class Inventory implements Serializable {
                 ", controller='" + controller + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
+                ", dpoName='" + dpoName + '\'' +
                 '}';
     }
 }

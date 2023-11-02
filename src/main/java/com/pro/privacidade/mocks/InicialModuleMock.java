@@ -10,7 +10,7 @@ public class InicialModuleMock {
     public static Quiz getQuizMock() {
         Quiz quiz = new Quiz();
         quiz.setAnswers("1,3,4,5");
-        quiz.setDpoName("Teste");
+        quiz.setDpoName("Teste Nome DPO");
         quiz.setResult("Moderado");
         quiz.setCreatedAt(new Date());
         quiz.setStatus(true);
@@ -33,6 +33,7 @@ public class InicialModuleMock {
         inventory.setController("Controlador de dados de exemplo");
         inventory.setCreatedAt(new Date());
         inventory.setUpdatedAt(new Date());
+        inventory.setDpoName("Teste Nome DPO");
         inventory.setStatus(true);
         return inventory;
     }
