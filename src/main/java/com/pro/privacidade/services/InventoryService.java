@@ -7,6 +7,10 @@ import com.pro.privacidade.repositories.InventoryRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -36,7 +40,7 @@ public class InventoryService {
     }
 
     public InventoryDTO create(InventoryDTO inventoryDTO) {
-        inventoryDTO.setCreatedAt(new Date());
+        inventoryDTO.setCreatedAt(LocalDateTime.now());
         return modelMapper.map(inventoryRepository.save(modelMapper.map(inventoryDTO, Inventory.class)), InventoryDTO.class);
     }
 
@@ -56,7 +60,7 @@ public class InventoryService {
         if (inventoryDTO.getSensitiveData() != null) inventory.setSensitiveData(inventoryDTO.getSensitiveData());
         if (inventoryDTO.getController() != null) inventory.setController(inventoryDTO.getController());
 
-        inventory.setUpdatedAt(new Date());
+        inventory.setUpdatedAt(LocalDateTime.now());
         return modelMapper.map(inventoryRepository.save(inventory), InventoryDTO.class);
     }
 

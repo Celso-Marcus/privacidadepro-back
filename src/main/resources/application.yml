@@ -1,0 +1,40 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE
+    driverClassName: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+#    configuracao dos arquivos de download e upload
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 1MB
+      max-file-size: 200MB
+      max-request-size: 215MB
+# Spring Doc
+springdoc:
+  pathToMath:
+    - /api/**
+  swagger-ui:
+    user-root-path: true
+    path: /swagger-ui.html
+  api-docs:
+    path: /api-docs
+
+# Para desenvolvimento
+file:
+  upload-dir: src/main/resources/uploaded-files
+
+# Para produção
+# file:
+#   upload-dir: /opt/privacidade-pro-files/
+
+# Retirar o stacktrace na resposta da API
+server:
+  error:
+    include-stacktrace: never
+  servlet:
+    context-path: /api

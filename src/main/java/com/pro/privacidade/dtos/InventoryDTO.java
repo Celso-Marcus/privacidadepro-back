@@ -4,10 +4,15 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.Date;
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Validated
-public class InventoryDTO {
+public class InventoryDTO implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     private Long id;
 
@@ -48,16 +53,16 @@ public class InventoryDTO {
     @NotNull
     private String controller;
 
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
 
     public InventoryDTO() {
     }
 
     public InventoryDTO(Long id, String tagName, String sector, String collectedData, String sourceData, String reasonData,
                         String howStorage, String securityData, String deadlineData, String justificationData, boolean underAgeData,
-                        String sensitiveData, String controller, Date createdAt, Date updatedAt) {
+                        String sensitiveData, String controller, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.tagName = tagName;
         this.sector = sector;
@@ -179,19 +184,19 @@ public class InventoryDTO {
         this.controller = controller;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 

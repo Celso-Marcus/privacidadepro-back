@@ -6,7 +6,7 @@ import org.hibernate.annotations.Where;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @SQLDelete(sql = "UPDATE inventario SET status = false WHERE id = ?")
@@ -58,10 +58,10 @@ public class Inventory implements Serializable {
     private String controller;
 
     @Column(name = "criado_em")
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "atualizado_em")
-    private Date updatedAt;
+    private LocalDateTime updatedAt;
 
     @Column(name = "dpo_name")
     private String dpoName;
@@ -74,7 +74,7 @@ public class Inventory implements Serializable {
 
     public Inventory(String tagName, String sector, String collectedData, String sourceData, String reasonData,
                      String howStorage, String securityData, String deadlineData, String justificationData, boolean underAgeData,
-                     String sensitiveData, String controller, Date createdAt, Date updatedAt, String dpoName) {
+                     String sensitiveData, String controller, LocalDateTime createdAt, LocalDateTime updatedAt, String dpoName) {
         this.tagName = tagName;
         this.sector = sector;
         this.collectedData = collectedData;
@@ -196,19 +196,19 @@ public class Inventory implements Serializable {
         this.controller = controller;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public LocalDateTime getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
     }
 

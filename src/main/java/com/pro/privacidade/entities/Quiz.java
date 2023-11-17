@@ -6,7 +6,7 @@ import org.hibernate.annotations.Where;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @SQLDelete(sql = "UPDATE quiz SET status = false WHERE id = ?")
@@ -31,7 +31,7 @@ public class Quiz implements Serializable {
     private String dpoName;
 
     @Column(name = "criado_em")
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     @Column(nullable = false, columnDefinition = "boolean default true")
     private Boolean status = true;
@@ -39,7 +39,7 @@ public class Quiz implements Serializable {
     public Quiz() {
     }
 
-    public Quiz(Long id, String result, String answers, String dpoName, Date createdAt, Boolean status) {
+    public Quiz(Long id, String result, String answers, String dpoName, LocalDateTime createdAt, Boolean status) {
         this.id = id;
         this.result = result;
         this.answers = answers;
@@ -80,11 +80,11 @@ public class Quiz implements Serializable {
         this.dpoName = dpoName;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 

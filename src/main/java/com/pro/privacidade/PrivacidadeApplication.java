@@ -1,6 +1,8 @@
 package com.pro.privacidade;
 
 import com.pro.privacidade.mocks.InicialModuleMock;
+import com.pro.privacidade.mocks.InterModuleMock;
+import com.pro.privacidade.repositories.ChecklistRepository;
 import com.pro.privacidade.repositories.InventoryRepository;
 import com.pro.privacidade.repositories.QuizRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -26,14 +28,18 @@ public class PrivacidadeApplication {
 	//Mocks para o módulo Inicial
 	//Retirar pra quando for pra produção
 	@Bean
-	CommandLineRunner initDatabase(QuizRepository quizRepository, InventoryRepository inventoryRepository) {
+	CommandLineRunner initDatabase(QuizRepository quizRepository, InventoryRepository inventoryRepository, ChecklistRepository checklistRepository) {
 		return args -> {
 			quizRepository.deleteAll();
 			inventoryRepository.deleteAll();
+			checklistRepository.deleteAll();
 
 			for (int i = 0; i < 3; i++) {
 				var quiz = InicialModuleMock.getQuizMock();
 				var inventory = InicialModuleMock.getInventoryMock();
+				var checklist = InterModuleMock.getChecklistMock();
+
+				checklistRepository.save(checklist);
 				quizRepository.save(quiz);
 				inventoryRepository.save(inventory);
 			}

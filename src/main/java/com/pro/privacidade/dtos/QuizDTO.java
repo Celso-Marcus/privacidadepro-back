@@ -4,11 +4,16 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.Date;
+import java.io.Serial;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Validated
-public class QuizDTO {
+public class QuizDTO implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     private Long id;
 
@@ -24,11 +29,11 @@ public class QuizDTO {
     @NotNull
     private String dpoName;
 
-    private Date createdAt;
+    private LocalDateTime createdAt;
 
     public QuizDTO() {}
 
-    public QuizDTO(Long id, String result, String answers, String dpoName, Date createdAt) {
+    public QuizDTO(Long id, String result, String answers, String dpoName, LocalDateTime createdAt) {
         this.id = id;
         this.result = result;
         this.answers = answers;
@@ -68,11 +73,11 @@ public class QuizDTO {
         this.dpoName = dpoName;
     }
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
 
