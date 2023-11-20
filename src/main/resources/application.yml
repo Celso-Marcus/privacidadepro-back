@@ -28,7 +28,7 @@ springdoc:
 file:
   upload-dir: src/main/resources/uploaded-files
 
-# Para produção
+# Para producao
 # file:
 #   upload-dir: /opt/privacidade-pro-files/
 
