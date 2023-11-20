@@ -43,7 +43,6 @@ public class InventoryDTO implements Serializable {
     @NotBlank
     @NotNull
     private String justificationData;
-    @NotBlank
     @NotNull
     private boolean underAgeData;
     @NotBlank

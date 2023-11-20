@@ -40,7 +40,9 @@ public class InventoryService {
     }
 
     public InventoryDTO create(InventoryDTO inventoryDTO) {
-        inventoryDTO.setCreatedAt(LocalDateTime.now());
+        var creationTime = LocalDateTime.now();
+        inventoryDTO.setCreatedAt(creationTime);
+        inventoryDTO.setUpdatedAt(creationTime);
         return modelMapper.map(inventoryRepository.save(modelMapper.map(inventoryDTO, Inventory.class)), InventoryDTO.class);
     }
 
