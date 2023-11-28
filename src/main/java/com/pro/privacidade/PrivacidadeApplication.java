@@ -1,10 +1,10 @@
 package com.pro.privacidade;
 
-import com.pro.privacidade.mocks.InicialModuleMock;
-import com.pro.privacidade.mocks.InterModuleMock;
-import com.pro.privacidade.repositories.ChecklistRepository;
-import com.pro.privacidade.repositories.InventoryRepository;
-import com.pro.privacidade.repositories.QuizRepository;
+import com.pro.privacidade.core.mocks.InicialModuleMock;
+import com.pro.privacidade.core.mocks.InterModuleMock;
+import com.pro.privacidade.infra.repositories.ChecklistRepository;
+import com.pro.privacidade.infra.repositories.InventoryRepository;
+import com.pro.privacidade.infra.repositories.QuizRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
