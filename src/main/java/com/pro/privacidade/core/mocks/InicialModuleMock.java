@@ -1,5 +1,6 @@
 package com.pro.privacidade.core.mocks;
 
+import com.pro.privacidade.core.entities.Interview;
 import com.pro.privacidade.core.entities.Inventory;
 import com.pro.privacidade.core.entities.Quiz;
 
@@ -20,11 +21,11 @@ public class InicialModuleMock {
 
     public static Inventory getInventoryMock() {
         Inventory inventory = new Inventory();
-        inventory.setTagName("Tag123");
+        inventory.setTagName("Inventario-TI-123");
         inventory.setSector("Setor de Exemplo");
         inventory.setCollectedData("Dados coletados de exemplo");
         inventory.setSourceData("Fonte de dados de exemplo");
-        inventory.setReasonData("Motivo dos dados de exemplo");
+        inventory.setReasonData("Legítimo interesse - Interesses legítimos do controlador ou de terceiro");
         inventory.setHowStorage("Como os dados são armazenados");
         inventory.setSecurityData("Nível de segurança dos dados");
         inventory.setDeadlineData("Prazo de retenção de dados");
@@ -37,9 +38,17 @@ public class InicialModuleMock {
         inventory.setDpoName("Teste Nome DPO");
         inventory.setForeignData("Nenhum");
         inventory.setShareData("Nenhum");
-        inventory.setSystemNames("System1, System2, System3");
-        inventory.setOperators("Operador1, Operador2, Operador3");
+        inventory.setSystemNames(List.of("System1, System2, System3"));
+        inventory.setOperators(List.of("Operador1, Operador2, Operador3"));
         inventory.setStatus(true);
         return inventory;
+    }
+
+    public static Interview getInterviewMock() {
+        Interview interview = new Interview();
+        interview.setFilePath("audio_dota2.ogg");
+        interview.setCreatedAt(LocalDateTime.now());
+        interview.setStatus(true);
+        return interview;
     }
 }

@@ -58,10 +58,10 @@ public class InventoryDTO implements Serializable {
     private String dpoName;
 
     @NotNull
-    private String operators;
+    private List<String> operators;
 
     @NotNull
-    private String systemNames;
+    private List<String> systemNames;
 
     @NotBlank
     @NotNull
@@ -80,7 +80,8 @@ public class InventoryDTO implements Serializable {
 
     public InventoryDTO(Long id, String tagName, String sector, String collectedData, String sourceData, String reasonData,
                         String howStorage, String securityData, String deadlineData, String justificationData, boolean underAgeData,
-                        String sensitiveData, String controller, LocalDateTime createdAt, LocalDateTime updatedAt) {
+                        String sensitiveData, String controller, LocalDateTime createdAt, LocalDateTime updatedAt,
+                        List<String> operators, List<String> systemNames, String foreignData, String shareData) {
         this.id = id;
         this.tagName = tagName;
         this.sector = sector;
@@ -96,6 +97,10 @@ public class InventoryDTO implements Serializable {
         this.controller = controller;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.operators = operators;
+        this.systemNames = systemNames;
+        this.foreignData = foreignData;
+        this.shareData = shareData;
     }
 
     public Long getId() {
@@ -222,19 +227,19 @@ public class InventoryDTO implements Serializable {
         this.dpoName = dpoName;
     }
 
-    public String getOperators() {
+    public List<String> getOperators() {
         return operators;
     }
 
-    public void setOperators(String operators) {
+    public void setOperators(List<String> operators) {
         this.operators = operators;
     }
 
-    public String getSystemNames() {
+    public List<String> getSystemNames() {
         return systemNames;
     }
 
-    public void setSystemNames(String systemNames) {
+    public void setSystemNames(List<String> systemNames) {
         this.systemNames = systemNames;
     }
 

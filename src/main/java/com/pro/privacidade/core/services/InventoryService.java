@@ -3,6 +3,7 @@ package com.pro.privacidade.core.services;
 import com.pro.privacidade.infra.http.dtos.InventoryDTO;
 import com.pro.privacidade.core.entities.Inventory;
 import com.pro.privacidade.core.exceptions.ResourceNotFound;
+import com.pro.privacidade.infra.repositories.InventoryLegitimateInterestRepository;
 import com.pro.privacidade.infra.repositories.InventoryRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -16,14 +17,23 @@ public class InventoryService {
 
     private final ModelMapper modelMapper;
     private final InventoryRepository inventoryRepository;
+    private final InventoryLegitimateInterestRepository inventoryLegitimateInterestRepository;
 
-    public InventoryService(ModelMapper modelMapper, InventoryRepository inventoryRepository) {
+    public InventoryService(ModelMapper modelMapper, InventoryRepository inventoryRepository, InventoryLegitimateInterestRepository inventoryLegitimateInterestRepository) {
         this.modelMapper = modelMapper;
         this.inventoryRepository = inventoryRepository;
+        this.inventoryLegitimateInterestRepository = inventoryLegitimateInterestRepository;
     }
 
     public List<InventoryDTO> getAll() {
         return inventoryRepository.findAll()
+                .stream()
+                .map(inventory -> modelMapper.map(inventory, InventoryDTO.class))
+                .toList();
+    }
+
+    public List<InventoryDTO> getAllLegitimateInterest() {
+        return inventoryLegitimateInterestRepository.getAllLegitimateInterest()
                 .stream()
                 .map(inventory -> modelMapper.map(inventory, InventoryDTO.class))
                 .toList();

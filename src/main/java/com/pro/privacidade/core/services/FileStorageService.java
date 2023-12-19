@@ -60,6 +60,32 @@ public class FileStorageService {
         }
     }
 
+    public String storeInterviewFile(MultipartFile file, String newFileName) {
+        String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+        String extesion = fileName.substring(fileName.lastIndexOf("."));
+        System.out.println(fileName);
+        System.out.println(extesion);
+        try {
+            if (fileName.contains("..")) {
+                //Essa verificação garante que o nome do arquivo não contém caminhos de pasta inválidos
+                throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
+            }
+            // Define o formato desejado
+            String dateNow = LocalDateTime.now().atZone(ZoneId.of("America/Sao_Paulo"))
+                    .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))
+                    .replace(" ", "_").replace("/", "_")
+                    .replace(":", "_");
+
+            Path targetLocation = this.fileStorageLocation.resolve(newFileName+extesion);
+            Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+
+            return newFileName+extesion;
+        }
+        catch (Exception ex) {
+            throw new FileStorageException("Could not store file:" + fileName + ". Please try again!", ex);
+        }
+    }
+
     public Resource loadFileAsResource(String fileName) {
         try{
             Path filePath = this.fileStorageLocation.resolve(fileName).normalize();

@@ -34,7 +34,7 @@ public class Inventory implements Serializable {
     @Column(name = "origem_dados")
     private String sourceData;
 
-    @Column(name = "motivo_coleta")
+    @Column(name = "base_legal")
     private String reasonData;
 
     @Column(name = "como_armazenado")
@@ -59,10 +59,10 @@ public class Inventory implements Serializable {
     private String controller;
 
     @Column(name = "operadores")
-    private String operators;
+    private List<String> operators;
 
     @Column(name = "nome_dos_sistemas")
-    private String systemNames;
+    private List<String> systemNames;
 
     @Column(name = "dados_estrangeiros")
     private String foreignData;
@@ -89,7 +89,7 @@ public class Inventory implements Serializable {
                      String howStorage, String securityData, String deadlineData, String justificationData,
                      boolean underAgeData,
                      String sensitiveData, String controller, LocalDateTime createdAt, LocalDateTime updatedAt,
-                     String dpoName, String operators, String systemNames, String foreignData, String shareData) {
+                     String dpoName, List<String> operators, List<String> systemNames, String foreignData, String shareData) {
         this.tagName = tagName;
         this.sector = sector;
         this.collectedData = collectedData;
@@ -247,19 +247,19 @@ public class Inventory implements Serializable {
         this.status = status;
     }
 
-    public String getOperators() {
+    public List<String> getOperators() {
         return operators;
     }
 
-    public void setOperators(String operators) {
+    public void setOperators(List<String> operators) {
         this.operators = operators;
     }
 
-    public String getSystemNames() {
+    public List<String> getSystemNames() {
         return systemNames;
     }
 
-    public void setSystemNames(String systemNames) {
+    public void setSystemNames(List<String> systemNames) {
         this.systemNames = systemNames;
     }
 
