@@ -80,7 +80,7 @@ public class Inventory implements Serializable {
     private String dpoName;
 
     @Column(nullable = false, columnDefinition = "boolean default true")
-    private Boolean status = true;
+    private boolean status = true;
 
     public Inventory() {
     }

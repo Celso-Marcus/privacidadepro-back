@@ -51,6 +51,12 @@ public class ChecklistService {
                 .toList();
     }
 
+    public ChecklistDTO findOne(Long id) {
+        var checklist = this.checklistRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFound("Checklist not found", id));
+        return modelMapper.map(checklist, ChecklistDTO.class);
+    }
+
     public ChecklistDTO update(ChecklistDTO checklistDTO) {
         var checklist = this.checklistRepository.findById(checklistDTO.getId())
                 .orElseThrow(() -> new ResourceNotFound("Checklist not found", checklistDTO.getId()));

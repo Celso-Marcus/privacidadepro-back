@@ -94,7 +94,13 @@ public class ChecklistController {
         return this.checklistService.getAll();
     }
 
-    @PutMapping
+    @GetMapping("/findOne/{id}")
+    @ResponseStatus(code = HttpStatus.OK)
+    public ChecklistDTO findOne(@PathVariable Long id) {
+        return this.checklistService.findOne(id);
+    }
+
+    @PatchMapping
     @ResponseStatus(code = HttpStatus.OK)
     @Operation(summary = "Atualizar checklist", tags = {"Checklist"}, responses = {
             @ApiResponse(responseCode = "200", description = "Checklist updated",

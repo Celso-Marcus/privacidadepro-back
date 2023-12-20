@@ -39,15 +39,19 @@ public class PrivacidadeApplication {
             for (int i = 0; i < 3; i++) {
                 var quiz = InicialModuleMock.getQuizMock();
                 var inventory = InicialModuleMock.getInventoryMock();
-                var checklist = InterModuleMock.getChecklistMock();
                 var lia = InterModuleMock.getLIAMock(i);
                 var interview = InicialModuleMock.getInterviewMock();
 
                 liaRepository.save(lia);
-                checklistRepository.save(checklist);
+
                 quizRepository.save(quiz);
                 inventoryRepository.save(inventory);
                 interviewRepository.save(interview);
+            }
+
+            for (int i = 0; i < 9; i++) {
+                var checklist = InterModuleMock.getChecklistMock(i);
+                checklistRepository.save(checklist);
             }
         };
     }
