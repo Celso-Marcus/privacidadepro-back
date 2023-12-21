@@ -55,8 +55,7 @@ public class InventoryService {
     public void update(Long id, InventoryDTO inventoryDTO) {
         var inventory = this.inventoryRepository.findById(id).orElseThrow(() -> new ResourceNotFound("Inventory", id));
 
-        Optional.ofNullable(inventoryDTO.getTagName()).ifPresent(inventory::setTagName);
-
+        if (inventoryDTO.getTagName() != null) inventory.setTagName(inventoryDTO.getTagName());
         if (inventoryDTO.getCollectedData() != null) inventory.setCollectedData(inventoryDTO.getCollectedData());
         if (inventoryDTO.getSourceData() != null) inventory.setSourceData(inventoryDTO.getSourceData());
         if (inventoryDTO.getReasonData() != null) inventory.setReasonData(inventoryDTO.getReasonData());

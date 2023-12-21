@@ -24,7 +24,7 @@ public class PdfController {
         return pdfService.getInventoryPdf(id);
     }
 
-    @GetMapping(value = "/download/{id}")
+    @GetMapping(value = "/lia/{id}")
     @ResponseStatus(code = HttpStatus.OK)
     public ResponseEntity<byte[]> getAllLegitimateInterestInventories(@PathVariable Long id) {
         var pdfBytes = pdfService.getLIAPdf(id);
