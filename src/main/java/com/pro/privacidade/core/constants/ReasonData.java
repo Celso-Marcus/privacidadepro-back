@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReasonData {
-    private final List<String> reasonDataList;
+    private static final List<String> reasonDataList = new ArrayList<>();;
 
     public ReasonData() {
-        reasonDataList = new ArrayList<>();
         reasonDataList.add("Consentimento - Mendiante consetimento do titular");
         reasonDataList.add("Regulatório - Para cumprimento de obrigação legal ou regulatória pelo controlador");
         reasonDataList.add("Governo - Pela administração pública, para tratamento de dados necessários a política pública");
@@ -21,7 +20,7 @@ public class ReasonData {
         reasonDataList.add("Dados sensíveis - Para garantia da prevenção à fraude e à segurança do títular");
     }
 
-    public List<String> getReasonDataList() {
+    public static List<String> getReasonDataList() {
         return reasonDataList;
     }
 }

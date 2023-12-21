@@ -34,7 +34,7 @@ public class InterviewService {
     }
 
     public InterviewDTO create(MultipartFile file, String newFilename){
-        var fileName = fileStorageService.storeInterviewFile(file, newFilename);
+        var fileName = fileStorageService.storeFile(file, newFilename, false);
         var interview = new InterviewDTO();
 
         interview.setFilePath(fileName);
@@ -44,14 +44,14 @@ public class InterviewService {
     }
 
     public Resource downloadFile(String fileName) {
-        return fileStorageService.loadFileAsResource(fileName);
+        return fileStorageService.loadFileAsResource(fileName, false);
     }
 
     public void deleteFile(Long id) {
         var interview = this.interviewRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFound("Interview not found", id));
         var fileName = interview.getFilePath();
-        fileStorageService.deleteFile(fileName);
+        fileStorageService.deleteFile(fileName, false);
         this.interviewRepository.delete(interview);
     }
 }

@@ -21,92 +21,68 @@ import java.util.Objects;
 @Service
 public class FileStorageService {
 
-    private final Path fileStorageLocation;
+    private final Path interviewsFileStorageLocation;
+    private final Path evidencesFileStorageLocation;
 
     public FileStorageService(FileStorageConfig fileStorageConfig) {
-        this.fileStorageLocation = Paths.get(fileStorageConfig.getUploadDir()).toAbsolutePath().normalize();
+        this.interviewsFileStorageLocation = Paths.get(fileStorageConfig.getUploadDirInterviews())
+                .toAbsolutePath().normalize();
+        this.evidencesFileStorageLocation = Paths.get(fileStorageConfig.getUploadDirEvidences())
+                .toAbsolutePath().normalize();
 
         try {
-            Files.createDirectories(this.fileStorageLocation);
+            Files.createDirectories(this.interviewsFileStorageLocation);
+            Files.createDirectories(this.evidencesFileStorageLocation);
         } catch (Exception ex) {
-            throw new FileStorageException("Could not create the directory where the uploaded files will be stored.", ex);
+            throw new FileStorageException
+                    ("Could not create the directory where the uploaded files will be stored.", ex);
         }
     }
 
-    public String storeEvidenceFile(MultipartFile file, String category) {
+    public String storeFile(MultipartFile file, String prefix, boolean isEvidence) {
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+        String newFileName = isEvidence ?
+                prefix.concat(fileName) : prefix.concat(fileName.substring(fileName.lastIndexOf(".")));
         try {
             if (fileName.contains("..")) {
-                //Essa verificação garante que o nome do arquivo não contém caminhos de pasta inválidos
                 throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
             }
-            // Define o formato desejado
-            String dateNow = LocalDateTime.now().atZone(ZoneId.of("America/Sao_Paulo"))
-                    .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))
-                    .replace(" ", "_").replace("/","_")
-                    .replace(":","_");
 
-            String newFileName =  dateNow + "_" + category + "_" + fileName;
-//            String newFileName =  new Date() + "_" + category + "_" + fileName;
-
-            //Para salvar na nuvem ou no banco de dados é necessário mudar as duas linhas abaixo
-            Path targetLocation = this.fileStorageLocation.resolve(newFileName);
+            Path targetLocation = this.evidencesFileStorageLocation.resolve(newFileName);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 
             return newFileName;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new FileStorageException("Could not store file:" + fileName + ". Please try again!", ex);
         }
     }
 
-    public String storeInterviewFile(MultipartFile file, String newFileName) {
-        String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
-        String extesion = fileName.substring(fileName.lastIndexOf("."));
-        System.out.println(fileName);
-        System.out.println(extesion);
+    public Resource loadFileAsResource(String fileName, boolean isEvidence) {
         try {
-            if (fileName.contains("..")) {
-                //Essa verificação garante que o nome do arquivo não contém caminhos de pasta inválidos
-                throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
-            }
-            // Define o formato desejado
-            String dateNow = LocalDateTime.now().atZone(ZoneId.of("America/Sao_Paulo"))
-                    .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))
-                    .replace(" ", "_").replace("/", "_")
-                    .replace(":", "_");
-
-            Path targetLocation = this.fileStorageLocation.resolve(newFileName+extesion);
-            Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
-
-            return newFileName+extesion;
-        }
-        catch (Exception ex) {
-            throw new FileStorageException("Could not store file:" + fileName + ". Please try again!", ex);
-        }
-    }
-
-    public Resource loadFileAsResource(String fileName) {
-        try{
-            Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
+            Path filePath = this.searchFile(fileName, isEvidence);
             Resource resource = new UrlResource(filePath.toUri());
             if (!resource.exists()) {
                 throw new FileNotFoundException("File not found " + fileName);
             }
             return resource;
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new FileNotFoundException("Could not load file:" + fileName + ". Please try again!", ex);
         }
     }
 
-    public void deleteFile(String fileName) {
-        try{
-            Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
+    public void deleteFile(String fileName, boolean isEvidence) {
+        try {
+            Path filePath = this.searchFile(fileName, isEvidence);
             Files.deleteIfExists(filePath);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new FileNotFoundException("Could not delete file:" + fileName + ". Please try again!", ex);
         }
+    }
+
+    private Path searchFile(String fileName, boolean isEvidence) {
+        if (isEvidence) {
+            return this.evidencesFileStorageLocation.resolve(fileName).normalize();
+        }
+        return this.interviewsFileStorageLocation.resolve(fileName).normalize();
     }
 }

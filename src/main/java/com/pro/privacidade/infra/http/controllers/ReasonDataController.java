@@ -28,6 +28,6 @@ public class ReasonDataController {
     }
     )
     public List<String> getAll() {
-        return new ReasonData().getReasonDataList();
+        return ReasonData.getReasonDataList();
     }
 }

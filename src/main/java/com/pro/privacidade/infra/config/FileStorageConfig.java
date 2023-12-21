@@ -8,14 +8,25 @@ import org.springframework.beans.factory.annotation.Value;
 @ConfigurationProperties(prefix = "file")
 public class FileStorageConfig {
 
-    @Value("${file.upload-dir}")
-    private String uploadDir;
+    @Value("${file.upload-dir-evidences}")
+    private String uploadDirEvidences;
 
-    public String getUploadDir() {
-        return uploadDir;
+    @Value("${file.upload-dir-interviews}")
+    private String uploadDirInterviews;
+
+    public String getUploadDirEvidences() {
+        return uploadDirEvidences;
     }
 
-    public void setUploadDir(String uploadDir) {
-        this.uploadDir = uploadDir;
+    public void setUploadDirEvidences(String uploadDir) {
+        this.uploadDirEvidences = uploadDir;
+    }
+
+    public String getUploadDirInterviews() {
+        return uploadDirInterviews;
+    }
+
+    public void setUploadDirInterviews(String uploadDir) {
+        this.uploadDirInterviews = uploadDir;
     }
 }

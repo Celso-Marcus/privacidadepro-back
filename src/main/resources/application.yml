@@ -26,7 +26,8 @@ springdoc:
 
 # Para desenvolvimento
 file:
-  upload-dir: src/main/resources/uploaded-files
+  upload-dir-evidences: src/main/resources/uploaded-files/evidences
+  upload-dir-interviews: src/main/resources/uploaded-files/interviews
 
 # Para producao
 # file:

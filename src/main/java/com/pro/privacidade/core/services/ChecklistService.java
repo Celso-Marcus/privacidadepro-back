@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,15 +29,21 @@ public class ChecklistService {
     }
 
     public Resource downloadFile(String fileName) {
-        return fileStorageService.loadFileAsResource(fileName);
+        return fileStorageService.loadFileAsResource(fileName, true);
     }
 
     public ChecklistDTO uploadFiles(MultipartFile[] files, Long id) {
         var checklist = this.checklistRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFound("Checklist not found", id));
 
+        String dateNow = LocalDateTime.now().atZone(ZoneId.of("America/Sao_Paulo"))
+                .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))
+                .replace(" ", "_").replace("/","_")
+                .replace(":","_");
+
         Arrays.stream(files).forEach(file -> {
-            var fileName = fileStorageService.storeEvidenceFile(file, checklist.getCategory());
+            String newFileName =  dateNow + "_" + checklist.getCategory() + "_";
+            var fileName = fileStorageService.storeFile(file, newFileName, true);
             checklist.getFiles().add(fileName);
         });
 
@@ -72,7 +80,7 @@ public class ChecklistService {
     public void deleteFile(long id, String fileName) {
         var checklist = this.checklistRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFound("Checklist not found", id));
-        this.fileStorageService.deleteFile(fileName);
+        this.fileStorageService.deleteFile(fileName, true);
         checklist.getFiles().remove(fileName);
         checklist.setUpdatedAt(LocalDateTime.now());
         this.checklistRepository.save(checklist);
