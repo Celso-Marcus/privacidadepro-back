@@ -34,12 +34,12 @@ public class Quiz implements Serializable {
     private LocalDateTime createdAt;
 
     @Column(nullable = false, columnDefinition = "boolean default true")
-    private Boolean status = true;
+    private boolean status = true;
 
     public Quiz() {
     }
 
-    public Quiz(Long id, String result, String answers, String dpoName, LocalDateTime createdAt, Boolean status) {
+    public Quiz(Long id, String result, String answers, String dpoName, LocalDateTime createdAt, boolean status) {
         this.id = id;
         this.result = result;
         this.answers = answers;
@@ -88,11 +88,11 @@ public class Quiz implements Serializable {
         this.createdAt = createdAt;
     }
 
-    public Boolean getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 

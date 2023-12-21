@@ -239,11 +239,11 @@ public class Inventory implements Serializable {
         this.dpoName = dpoName;
     }
 
-    public Boolean getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 

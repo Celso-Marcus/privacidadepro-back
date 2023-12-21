@@ -26,7 +26,7 @@ public class RIPD implements Serializable {
     @Column(name = "criado_em")
     private LocalDateTime createdAt;
     @Column(nullable = false, columnDefinition = "boolean default true")
-    private Boolean status = true;
+    private boolean status = true;
 
     public RIPD() {
     }

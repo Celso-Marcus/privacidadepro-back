@@ -28,12 +28,12 @@ public class Incident implements Serializable {
     @Column(name = "criado_em")
     private LocalDateTime createdAt;
     @Column(nullable = false, columnDefinition = "boolean default true")
-    private Boolean status = true;
+    private boolean status = true;
 
     public Incident() {
     }
 
-    public Incident(Long id, String communication, String occurrence, LocalDateTime createdAt, Boolean status) {
+    public Incident(Long id, String communication, String occurrence, LocalDateTime createdAt, boolean status) {
         this.id = id;
         this.communication = communication;
         this.occurrence = occurrence;
@@ -73,11 +73,11 @@ public class Incident implements Serializable {
         this.createdAt = createdAt;
     }
 
-    public Boolean getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 
@@ -102,7 +102,6 @@ public class Incident implements Serializable {
         result = 31 * result + (communication != null ? communication.hashCode() : 0);
         result = 31 * result + (occurrence != null ? occurrence.hashCode() : 0);
         result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
-        result = 31 * result + (status != null ? status.hashCode() : 0);
         return result;
     }
 

@@ -29,11 +29,11 @@ public class Interview implements Serializable {
     private LocalDateTime createdAt;
 
     @Column(nullable = false, columnDefinition = "boolean default true")
-    private Boolean status = true;
+    private boolean status = true;
 
     public Interview() {}
 
-    public Interview(Long id, String filePath, LocalDateTime createdAt, Boolean status) {
+    public Interview(Long id, String filePath, LocalDateTime createdAt, boolean status) {
         this.id = id;
         this.filePath = filePath;
         this.createdAt = createdAt;
@@ -64,11 +64,11 @@ public class Interview implements Serializable {
         this.createdAt = createdAt;
     }
 
-    public Boolean getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 
@@ -90,7 +90,6 @@ public class Interview implements Serializable {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (filePath != null ? filePath.hashCode() : 0);
         result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
-        result = 31 * result + (status != null ? status.hashCode() : 0);
         return result;
     }
 

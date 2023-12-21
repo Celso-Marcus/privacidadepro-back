@@ -34,11 +34,11 @@ public class Checklist implements Serializable {
     private LocalDateTime updatedAt;
 
     @Column(nullable = false, columnDefinition = "boolean default true")
-    private Boolean status = true;
+    private boolean status = true;
 
     public Checklist() {}
 
-    public Checklist(Long id, String category, String answers, List<String> files, Boolean status, LocalDateTime updatedAt) {
+    public Checklist(Long id, String category, String answers, List<String> files, boolean status, LocalDateTime updatedAt) {
         this.id = id;
         this.category = category;
         this.answers = answers;
@@ -79,11 +79,11 @@ public class Checklist implements Serializable {
         this.files = files;
     }
 
-    public Boolean getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 

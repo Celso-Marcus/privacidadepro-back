@@ -41,13 +41,13 @@ public class LIA implements Serializable {
     private LocalDateTime updatedAt;
 
     @Column(nullable = false, columnDefinition = "boolean default true")
-    private Boolean status = true;
+    private boolean status = true;
 
     public LIA() {
     }
 
     public LIA(Long id, String inventoryName, String answers, String justification, String dpoName,
-               LocalDateTime createdAt, LocalDateTime updatedAt, Boolean status) {
+               LocalDateTime createdAt, LocalDateTime updatedAt, boolean status) {
         this.id = id;
         this.inventoryName = inventoryName;
         this.answers = answers;
@@ -114,11 +114,11 @@ public class LIA implements Serializable {
         this.updatedAt = updatedAt;
     }
 
-    public Boolean getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 
@@ -146,7 +146,6 @@ public class LIA implements Serializable {
         result = 31 * result + (justification != null ? justification.hashCode() : 0);
         result = 31 * result + (dpoName != null ? dpoName.hashCode() : 0);
         result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
-        result = 31 * result + (status != null ? status.hashCode() : 0);
         return result;
     }
 
