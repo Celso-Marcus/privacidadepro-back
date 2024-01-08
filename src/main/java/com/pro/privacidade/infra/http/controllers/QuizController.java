@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/quiz")
+@Tag(name = "Quiz")
 public class QuizController {
 
     private final QuizService quizService;
@@ -25,7 +27,6 @@ public class QuizController {
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
     @Operation(summary = "Listar todos os quizes feitos"
-            , tags = {"Quiz"}
             , responses = {
                     @ApiResponse(responseCode = "200", description = "Sucesso",
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = QuizDTO.class))}),
@@ -40,7 +41,6 @@ public class QuizController {
     @GetMapping("/{id}")
     @ResponseStatus(code = HttpStatus.OK)
     @Operation(summary = "Procurar um quiz pelo ID"
-            , tags = {"Quiz"}
             , responses = {
                     @ApiResponse(responseCode = "200", description = "Sucesso",
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = QuizDTO.class))}),
@@ -56,7 +56,6 @@ public class QuizController {
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     @Operation(summary = "Registrar um novo quiz"
-            , tags = {"Quiz"}
             , responses = {
                     @ApiResponse(responseCode = "201", description = "Sucesso",
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = QuizDTO.class))}),
@@ -71,7 +70,6 @@ public class QuizController {
     @DeleteMapping("/{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     @Operation(summary = "Excluir um quiz pelo ID"
-            , tags = {"Quiz"}
             , responses = {
                     @ApiResponse(responseCode = "204", description = "Sucesso",
                     content = {@Content(mediaType = "application/json", schema = @Schema(implementation = QuizDTO.class))}),

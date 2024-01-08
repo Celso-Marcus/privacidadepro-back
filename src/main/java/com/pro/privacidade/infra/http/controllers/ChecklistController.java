@@ -4,6 +4,7 @@ import com.pro.privacidade.infra.http.dtos.ChecklistDTO;
 import com.pro.privacidade.core.exceptions.FileNotFoundException;
 import com.pro.privacidade.core.exceptions.FileStorageException;
 import com.pro.privacidade.core.services.ChecklistService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -21,6 +22,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/checklists")
+@Tag(name = "Checklist de TI")
 public class ChecklistController {
 
     private final ChecklistService checklistService;
@@ -31,7 +33,7 @@ public class ChecklistController {
 
     @GetMapping("file/download/{fileName:.+}")
     @ResponseStatus(code = HttpStatus.OK)
-    @Operation(summary = "Download de um arquivo", tags = {"Checklist"}, responses = {
+    @Operation(summary = "Download de um arquivo", responses = {
             @ApiResponse(responseCode = "200",
                     content = @Content(schema = @Schema(implementation = Resource.class), mediaType = "application/octet-stream")),
             @ApiResponse(responseCode = "404", description = "File not found", content =
@@ -64,7 +66,7 @@ public class ChecklistController {
 
     @PostMapping("file/upload")
     @ResponseStatus(code = HttpStatus.OK)
-    @Operation(summary = "Upload de um ou mais arquivos", tags = {"Checklist"}, responses = {
+    @Operation(summary = "Upload de um ou mais arquivos", responses = {
             @ApiResponse(responseCode = "200", description = "File uploaded",
                     content = @Content(mediaType = "application/json", schema =
                     @Schema(implementation = ChecklistDTO.class))),
@@ -85,7 +87,7 @@ public class ChecklistController {
 
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
-    @Operation(summary = "Listar todos os checklists", tags = {"Checklist"}, responses = {
+    @Operation(summary = "Listar todos os checklists", responses = {
             @ApiResponse(responseCode = "200", description = "Checklists found",
                     content = @Content(mediaType = "application/json", schema =
                     @Schema(implementation = ChecklistDTO.class))),
@@ -102,7 +104,7 @@ public class ChecklistController {
 
     @PatchMapping
     @ResponseStatus(code = HttpStatus.OK)
-    @Operation(summary = "Atualizar checklist", tags = {"Checklist"}, responses = {
+    @Operation(summary = "Atualizar checklist", responses = {
             @ApiResponse(responseCode = "200", description = "Checklist updated",
                     content = @Content(mediaType = "application/json", schema =
                     @Schema(implementation = ChecklistDTO.class))),
@@ -113,7 +115,7 @@ public class ChecklistController {
 
     @DeleteMapping("file/{id}/{fileName:.+}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    @Operation(summary = "Delete file", tags = {"Checklist"}, responses = {
+    @Operation(summary = "Delete file", responses = {
             @ApiResponse(responseCode = "200", description = "File deleted",
                     content = @Content(mediaType = "application/json", schema =
                     @Schema(implementation = ChecklistDTO.class))),

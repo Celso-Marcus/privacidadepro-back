@@ -7,6 +7,10 @@ public class ReasonData {
     private static final List<String> reasonDataList = new ArrayList<>();;
 
     public ReasonData() {
+
+    }
+
+    public static List<String> getReasonDataList() {
         reasonDataList.add("Consentimento - Mendiante consetimento do titular");
         reasonDataList.add("Regulatório - Para cumprimento de obrigação legal ou regulatória pelo controlador");
         reasonDataList.add("Governo - Pela administração pública, para tratamento de dados necessários a política pública");
@@ -18,9 +22,6 @@ public class ReasonData {
         reasonDataList.add("Legítimo interesse - Interesses legítimos do controlador ou de terceiro");
         reasonDataList.add("Crédito - Para proteção do crédito");
         reasonDataList.add("Dados sensíveis - Para garantia da prevenção à fraude e à segurança do títular");
-    }
-
-    public static List<String> getReasonDataList() {
         return reasonDataList;
     }
 }

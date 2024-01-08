@@ -3,6 +3,7 @@ package com.pro.privacidade;
 import com.pro.privacidade.core.mocks.InicialModuleMock;
 import com.pro.privacidade.core.mocks.InterModuleMock;
 import com.pro.privacidade.infra.repositories.*;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,6 +20,7 @@ public class PrivacidadeApplication {
     }
 
     @GetMapping("/hello")
+    @Operation(summary = "Endpoint de Teste", tags = {"Teste"})
     public String hello() {
         return "Olá Mundo!";
     }

@@ -2,6 +2,10 @@ package com.pro.privacidade.infra.http.controllers;
 
 import com.pro.privacidade.core.services.InterviewService;
 import com.pro.privacidade.infra.http.dtos.InterviewDTO;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -15,6 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/interview")
+@Tag(name = "Entrevistas")
 public class InterviewController {
 
     private final InterviewService interviewService;
@@ -25,12 +30,23 @@ public class InterviewController {
 
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
+    @Operation(summary = "Listar todas as entrevistas", responses = {
+            @ApiResponse(responseCode = "200", description = "Sucesso",
+                    content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
     public List<InterviewDTO> getAll() {
         return interviewService.getAll();
     }
 
     @GetMapping("{fileName:.+}")
     @ResponseStatus(code = HttpStatus.OK)
+    @Operation(summary = "Baixar arquivo", responses = {
+            @ApiResponse(responseCode = "200", description = "Sucesso",
+                    content = {@Content(mediaType = "application/octet-stream")}),
+            @ApiResponse(responseCode = "404", description = "Arquivo não encontrado"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
     public ResponseEntity<Resource> download(@PathVariable String fileName, HttpServletRequest request) {
         Resource resource = this.interviewService.downloadFile(fileName);
         String contentType = "";
@@ -51,12 +67,22 @@ public class InterviewController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
+    @Operation(summary = "Criar uma entrevista", responses = {
+            @ApiResponse(responseCode = "201", description = "Entrevista criada"),
+            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
     public InterviewDTO create(@RequestParam("file") MultipartFile file, @RequestParam("fileName") String fileName) {
         return interviewService.create(file, fileName);
     }
 
     @DeleteMapping("{id}")
-    @ResponseStatus(code = HttpStatus.OK)
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    @Operation(summary = "Excluir uma entrevista", responses = {
+            @ApiResponse(responseCode = "204", description = "Entrevista excluída"),
+            @ApiResponse(responseCode = "400", description = "Requisição inválida"),
+            @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
+    })
     public void delete(@PathVariable Long id) {
         this.interviewService.deleteFile(id);
     }
