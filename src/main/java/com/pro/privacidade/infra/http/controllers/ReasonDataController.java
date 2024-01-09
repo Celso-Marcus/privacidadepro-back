@@ -1,6 +1,7 @@
 package com.pro.privacidade.infra.http.controllers;
 
-import com.pro.privacidade.core.constants.ReasonData;
+import com.pro.privacidade.core.services.ReasonDataService;
+import com.pro.privacidade.infra.http.dtos.ReasonDataDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -18,6 +19,12 @@ import java.util.List;
 @Tag(name = "Razão Legal de Dados")
 public class ReasonDataController {
 
+    private final ReasonDataService reasonDataService;
+
+    public ReasonDataController(ReasonDataService reasonDataService) {
+        this.reasonDataService = reasonDataService;
+    }
+
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
     @Operation(summary = "Listar todos os motivos de dados"
@@ -27,7 +34,7 @@ public class ReasonDataController {
             @ApiResponse(responseCode = "400", description = "Requisição inválida"),
             @ApiResponse(responseCode = "500", description = "Erro interno do servidor")
     })
-    public List<String> getAll() {
-        return ReasonData.getReasonDataList();
+    public List<ReasonDataDTO> getAll() {
+        return reasonDataService.getAll();
     }
 }

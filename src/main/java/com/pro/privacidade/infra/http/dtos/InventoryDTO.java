@@ -29,9 +29,8 @@ public class InventoryDTO implements Serializable {
     @NotBlank
     @NotNull
     private String sourceData;
-    @NotBlank
     @NotNull
-    private String reasonData;
+    private ReasonDataDTO reasonData;
     @NotBlank
     @NotNull
     private String howStorage;
@@ -78,7 +77,7 @@ public class InventoryDTO implements Serializable {
     public InventoryDTO() {
     }
 
-    public InventoryDTO(Long id, String tagName, String sector, String collectedData, String sourceData, String reasonData,
+    public InventoryDTO(Long id, String tagName, String sector, String collectedData, String sourceData, ReasonDataDTO reasonData,
                         String howStorage, String securityData, String deadlineData, String justificationData, boolean underAgeData,
                         String sensitiveData, String controller, LocalDateTime createdAt, LocalDateTime updatedAt,
                         List<String> operators, List<String> systemNames, String foreignData, String shareData) {
@@ -143,11 +142,11 @@ public class InventoryDTO implements Serializable {
         this.sourceData = sourceData;
     }
 
-    public String getReasonData() {
+    public ReasonDataDTO getReasonData() {
         return reasonData;
     }
 
-    public void setReasonData(String reasonData) {
+    public void setReasonData(ReasonDataDTO reasonData) {
         this.reasonData = reasonData;
     }
 

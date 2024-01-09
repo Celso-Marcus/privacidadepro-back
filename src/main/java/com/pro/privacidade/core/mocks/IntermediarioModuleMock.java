@@ -6,7 +6,7 @@ import com.pro.privacidade.core.entities.LIA;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class InterModuleMock {
+public class IntermediarioModuleMock {
 
     public static Checklist getChecklistMock(int i) {
         Checklist checklist = new Checklist();

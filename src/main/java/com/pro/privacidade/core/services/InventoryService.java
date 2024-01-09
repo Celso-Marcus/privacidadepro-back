@@ -18,11 +18,15 @@ public class InventoryService {
     private final ModelMapper modelMapper;
     private final InventoryRepository inventoryRepository;
     private final InventoryLegitimateInterestRepository inventoryLegitimateInterestRepository;
+    private final ReasonDataService reasonDataService;
 
-    public InventoryService(ModelMapper modelMapper, InventoryRepository inventoryRepository, InventoryLegitimateInterestRepository inventoryLegitimateInterestRepository) {
+    public InventoryService(ModelMapper modelMapper, InventoryRepository inventoryRepository,
+                            InventoryLegitimateInterestRepository inventoryLegitimateInterestRepository
+                            , ReasonDataService reasonDataService) {
         this.modelMapper = modelMapper;
         this.inventoryRepository = inventoryRepository;
         this.inventoryLegitimateInterestRepository = inventoryLegitimateInterestRepository;
+        this.reasonDataService = reasonDataService;
     }
 
     public List<InventoryDTO> getAll() {
@@ -49,20 +53,28 @@ public class InventoryService {
         var creationTime = LocalDateTime.now();
         inventoryDTO.setCreatedAt(creationTime);
         inventoryDTO.setUpdatedAt(creationTime);
-        return modelMapper.map(inventoryRepository.save(modelMapper.map(inventoryDTO, Inventory.class)), InventoryDTO.class);
+        return modelMapper
+                .map(inventoryRepository.save(
+                        modelMapper.map(inventoryDTO, Inventory.class)), InventoryDTO.class
+                );
     }
 
     public void update(Long id, InventoryDTO inventoryDTO) {
-        var inventory = this.inventoryRepository.findById(id).orElseThrow(() -> new ResourceNotFound("Inventory", id));
+        var inventory = this.inventoryRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFound("Inventory", id));
 
         if (inventoryDTO.getTagName() != null) inventory.setTagName(inventoryDTO.getTagName());
         if (inventoryDTO.getCollectedData() != null) inventory.setCollectedData(inventoryDTO.getCollectedData());
         if (inventoryDTO.getSourceData() != null) inventory.setSourceData(inventoryDTO.getSourceData());
-        if (inventoryDTO.getReasonData() != null) inventory.setReasonData(inventoryDTO.getReasonData());
+        if (inventoryDTO.getReasonData() != null)
+            inventory.setReasonData(
+                    this.reasonDataService.findById(inventoryDTO.getReasonData().getId())
+            );
         if (inventoryDTO.getHowStorage() != null) inventory.setHowStorage(inventoryDTO.getHowStorage());
         if (inventoryDTO.getSecurityData() != null) inventory.setSecurityData(inventoryDTO.getSecurityData());
         if (inventoryDTO.getDeadlineData() != null) inventory.setDeadlineData(inventoryDTO.getDeadlineData());
-        if (inventoryDTO.getJustificationData() != null) inventory.setJustificationData(inventoryDTO.getJustificationData());
+        if (inventoryDTO.getJustificationData() != null)
+            inventory.setJustificationData(inventoryDTO.getJustificationData());
         if (inventoryDTO.getTagName() != null) inventory.setTagName(inventoryDTO.getTagName());
         if (inventoryDTO.getSensitiveData() != null) inventory.setSensitiveData(inventoryDTO.getSensitiveData());
         if (inventoryDTO.getController() != null) inventory.setController(inventoryDTO.getController());

@@ -34,8 +34,9 @@ public class Inventory implements Serializable {
     @Column(name = "origem_dados")
     private String sourceData;
 
-    @Column(name = "base_legal")
-    private String reasonData;
+    @ManyToOne
+    @JoinColumn(name = "base_legal_id")
+    private ReasonData reasonData;
 
     @Column(name = "como_armazenado")
     private String howStorage;
@@ -85,7 +86,7 @@ public class Inventory implements Serializable {
     public Inventory() {
     }
 
-    public Inventory(String tagName, String sector, String collectedData, String sourceData, String reasonData,
+    public Inventory(String tagName, String sector, String collectedData, String sourceData, ReasonData reasonData,
                      String howStorage, String securityData, String deadlineData, String justificationData,
                      boolean underAgeData,
                      String sensitiveData, String controller, LocalDateTime createdAt, LocalDateTime updatedAt,
@@ -151,11 +152,11 @@ public class Inventory implements Serializable {
         this.sourceData = sourceData;
     }
 
-    public String getReasonData() {
+    public ReasonData getReasonData() {
         return reasonData;
     }
 
-    public void setReasonData(String reasonData) {
+    public void setReasonData(ReasonData reasonData) {
         this.reasonData = reasonData;
     }
 

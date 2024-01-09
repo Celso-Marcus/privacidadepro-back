@@ -3,6 +3,7 @@ package com.pro.privacidade.core.mocks;
 import com.pro.privacidade.core.entities.Interview;
 import com.pro.privacidade.core.entities.Inventory;
 import com.pro.privacidade.core.entities.Quiz;
+import com.pro.privacidade.core.entities.ReasonData;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,13 +20,13 @@ public class InicialModuleMock {
         return quiz;
     }
 
-    public static Inventory getInventoryMock() {
+    public static Inventory getInventoryMock(ReasonData reasonData) {
         Inventory inventory = new Inventory();
         inventory.setTagName("Inventario-TI-123");
         inventory.setSector("Setor de Exemplo");
         inventory.setCollectedData("Dados coletados de exemplo");
         inventory.setSourceData("Fonte de dados de exemplo");
-        inventory.setReasonData("Legítimo interesse - Interesses legítimos do controlador ou de terceiro");
+        inventory.setReasonData(reasonData);
         inventory.setHowStorage("Como os dados são armazenados");
         inventory.setSecurityData("Nível de segurança dos dados");
         inventory.setDeadlineData("Prazo de retenção de dados");
