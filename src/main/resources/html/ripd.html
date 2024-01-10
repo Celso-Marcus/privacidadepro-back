@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RIPD</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Relatório de Impacto a Proteção de Dados Pessoais</h1>
+
+
+    <h3>Identificação</h3>
+    <table>
+        <tr>
+            <td>Controlador</td>
+            <td>${controller}</td>
+        </tr>
+        <tr>
+            <td>Encarregado(DPO)</td>
+            <td>${dpoName}</td>
+        </tr>
+        <tr>
+            <td>Operadores</td>
+            <td>${operators}</td>
+        </tr>
+        <tr>
+            <td>Nome do Processo</td>
+            <td>${tagName}</td>
+        </tr>
+        <tr>
+            <td>Nome do Responsável</td>
+            <td>${ownerName}</td>
+        </tr>
+        <tr>
+            <td>E-mail do Responsável</td>
+            <td>${ownerEmail}</td>
+        </tr>
+        <tr>
+            <td>E-mail do Responsável</td>
+            <td>${ownerPhone}</td>
+        </tr>
+        <tr>
+            <td>Data de Preenchimento</td>
+            <td>${createdAt}</td>
+        </tr>
+    </table>
+
+    <br><hr>
+
+    <h3>Informações Sobre o Processo</h3>
+
+    <table>
+        <tr>
+            <td>Dados Coletados</td>
+            <td>${collectedData}</td>
+        </tr>
+        <tr>
+            <td>Setor</td>
+            <td>${sector}</td>
+        </tr>
+        <tr>
+            <td>Dados de menores de idade?</td>
+            <td>${underAgeData}</td>
+        </tr>
+        <tr>
+            <td>Fonte dos dados</td>
+            <td>${sourceData}</td>
+        </tr>
+        <tr>
+            <td>Razão dos dados</td>
+            <td>${reasonData}</td>
+        </tr>
+        <tr>
+            <td>Como foram armazenados?</td>
+            <td>${howStorage}</td>
+        </tr>
+        <tr>
+            <td>Segurança dos dados</td>
+            <td>${securityData}</td>
+        </tr>
+        <tr>
+            <td>Eliminação dos dados</td>
+            <td>${deadlineData}</td>
+        </tr>
+        <tr>
+            <td>Justificativa Legal dos Dados</td>
+            <td>${justificationData}</td>
+        </tr>
+        <tr>
+            <td>Dados Sensíveis</td>
+            <td>${sensitiveData}</td>
+        </tr>
+        <tr>
+            <td>Sistemas Usados</td>
+            <td>${systemNames}</td>
+        </tr>
+    </table>
+
+    <br><hr>
+
+    <h3>Analise de Riscos</h3>
+    <table>
+        <tr>
+            <td>Há risco de descumprimento a algum dos princípios da LGPD?</td>
+            <td>${principleRisk}</td>
+        </tr>
+        <tr>
+            <td>Há risco aos direitos e liberdades dos titulares?</td>
+            <td>${userRisk}</td>
+        </tr>
+        <tr>
+            <td>Há outros riscos de proteção de dados identificados?</td>
+            <td>${dataRisk}</td>
+        </tr>
+        <tr>
+            <td>Descreva as medidas de mitigação de riscos implementadas</td>
+            <td>${reactionRisk}</td>
+        </tr>
+    </table>
+</body>
+
+</html>

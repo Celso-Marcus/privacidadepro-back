@@ -8,6 +8,7 @@ import com.itextpdf.io.font.FontProgramFactory;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.font.FontProvider;
+import com.pro.privacidade.infra.http.dtos.RipdDTO;
 import org.apache.commons.text.StringSubstitutor;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -19,6 +20,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -66,6 +70,33 @@ public class PdfService {
             parameters.replace("operators", String.join(", ", inventory.getOperators()));
             parameters.replace("systemNames", String.join(", ", inventory.getSystemNames()));
             parameters.replace("underAgeData", inventory.getUnderAgeData() ? "Sim" : "Não");
+
+            return generatePdf(htmlString, parameters);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public byte[] getRipdPdf(RipdDTO ripdDTO) {
+        try {
+            var inventory = inventoryService.findById(ripdDTO.getInventoryId());
+
+            String htmlString = getHtmlFileString("ripd");
+
+            Map<String, Object> parameters = convertUsingReflection(inventory);
+            parameters.replace("operators", String.join(", ", inventory.getOperators()));
+            parameters.replace("systemNames", String.join(", ", inventory.getSystemNames()));
+            parameters.replace("underAgeData", inventory.getUnderAgeData() ? "Sim" : "Não");
+            parameters.put("ownerName", ripdDTO.getOwnerName());
+            parameters.put("ownerEmail", ripdDTO.getOwnerEmail());
+            parameters.put("ownerPhone", ripdDTO.getOwnerPhone());
+            parameters.put("principleRisk", ripdDTO.getPrincipleRisk());
+            parameters.put("userRisk", ripdDTO.getUserRisk());
+            parameters.put("dataRisk", ripdDTO.getDataRisk());
+            parameters.put("reactionRisk", ripdDTO.getReactionRisk());
+            parameters.replace("reasonData", inventory.getReasonData().getName());
+            parameters.replace("createdAt", LocalDateTime.now().atZone(ZoneId.of("America/Sao_Paulo"))
+                    .format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 
             return generatePdf(htmlString, parameters);
         } catch (Exception e) {
